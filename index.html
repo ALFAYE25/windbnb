@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Windbnb - búsqueda de estancias estilo AirBnB (proyecto Windbnb DevChallenges)" />
+
+  <!-- Tailwind CDN (solo para desarrollo) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos compilados -->
+  <link rel="stylesheet" href="./estilos/output.css" />
+
+  <!-- Script principal como módulo -->
+  <script type="module" src="./javas/main.js"></script>
+
+  <title>Proyecto Windbnb</title>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+
+  <!-- Encabezado -->
+  <header class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 p-6 bg-white shadow-md">
+    <h1 class="text-2xl font-bold text-red-500">Windbnb</h1>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <input
+        id="ciudadInput"
+        type="text"
+        placeholder="Buscar por ciudad..."
+        class="border rounded-lg p-2 w-44 md:w-64"
+        aria-label="Buscar por ciudad"
+      />
+      <input
+        id="huespedesInput"
+        type="number"
+        min="1"
+        placeholder="Huéspedes"
+        class="border rounded-lg p-2 w-28"
+        aria-label="Número de huéspedes"
+      />
+      <button
+        id="btnBuscar"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+        aria-label="Buscar"
+      >
+        Buscar
+      </button>
+
+      <button
+        id="abrirFiltro"
+        class="bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700"
+        aria-haspopup="dialog"
+        aria-controls="modalFiltro"
+      >
+        Filtros Avanzados
+      </button>
+    </div>
+  </header>
+
+  <!-- Sección principal -->
+  <main class="p-6 max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">Estancias disponibles</h2>
+      <p id="mensajeEstancias" class="text-gray-500 text-sm"></p>
+    </div>
+
+    <!-- Contenedor de tarjetas -->
+    <div id="contenedorEstancias" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- Modal de detalle -->
+  <div id="overlayDetalle" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"></div>
+  <div id="modalDetalle" class="fixed inset-0 flex justify-center items-center hidden z-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6">
+      <button id="cerrarDetalle" class="absolute top-2 right-3 text-gray-600 text-2xl" aria-label="Cerrar">&times;</button>
+      <div id="contenidoDetalle" class="space-y-3">
+        <!-- Contenido inyectado dinámicamente por modalDetalle.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de filtros avanzados -->
+  <div id="overlayFiltro" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+  <div id="modalFiltro" class="fixed inset-0 flex justify-center items-center hidden z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-80 relative">
+      <button id="cerrarFiltro" class="absolute top-2 right-3 text-gray-600 text-xl" aria-label="Cerrar filtros">&times;</button>
+
+      <h3 class="text-lg font-semibold mb-4">Buscar Estancia</h3>
+
+      <label class="block mb-2 text-sm">País:</label>
+      <select id="ciudadSelect" class="border rounded w-full mb-3 p-2">
+        <option value="">Todos</option>
+        <option>México</option>
+        <option>Colombia</option>
+        <option>Argentina</option>
+        <option>Perú</option>
+        <option>Chile</option>
+        <option>Brasil</option>
+        <option>Guatemala</option>
+        <option>Costa Rica</option>
+        <option>Ecuador</option>
+        <option>Uruguay</option>
+      </select>
+
+      <label class="block mb-2 text-sm">Número de huéspedes:</label>
+      <input
+        type="number"
+        id="huespedesFiltro"
+        class="border rounded w-full mb-4 p-2"
+        min="1"
+        value="1"
+      />
+
+      <button id="aplicarFiltros" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded w-full">
+        Aplicar Filtros
+      </button>
+    </div>
+  </div>
+
+ 
+
+</body>
+</html>
