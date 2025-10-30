@@ -1,5 +1,3 @@
-// datos/stays.js
-
 // /datos/stays.js
 export const estancias = [
   {

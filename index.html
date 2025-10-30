@@ -11,51 +11,9 @@
   <!-- Estilos compilados -->
   <link rel="stylesheet" href="./estilos/output.css" />
 
-  <!-- Script principal como módulo -->
-  <script type="module" src="./javas/main.js"></script>
-
   <title>Proyecto Windbnb</title>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen">
-
-  <!-- Encabezado -->
-  <header class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 p-6 bg-white shadow-md">
-    <h1 class="text-2xl font-bold text-red-500">Windbnb</h1>
-
-    <div class="flex flex-wrap items-center gap-3">
-      <input
-        id="ciudadInput"
-        type="text"
-        placeholder="Buscar por ciudad..."
-        class="border rounded-lg p-2 w-44 md:w-64"
-        aria-label="Buscar por ciudad"
-      />
-      <input
-        id="huespedesInput"
-        type="number"
-        min="1"
-        placeholder="Huéspedes"
-        class="border rounded-lg p-2 w-28"
-        aria-label="Número de huéspedes"
-      />
-      <button
-        id="btnBuscar"
-        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-        aria-label="Buscar"
-      >
-        Buscar
-      </button>
-
-      <button
-        id="abrirFiltro"
-        class="bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700"
-        aria-haspopup="dialog"
-        aria-controls="modalFiltro"
-      >
-        Filtros Avanzados
-      </button>
-    </div>
-  </header>
 
   <!-- Sección principal -->
   <main class="p-6 max-w-7xl mx-auto">
@@ -64,18 +22,59 @@
       <p id="mensajeEstancias" class="text-gray-500 text-sm"></p>
     </div>
 
-    <!-- Contenedor de tarjetas -->
-    <div id="contenedorEstancias" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    <!-- 🔹 Buscador principal tipo Airbnb -->
+    <section class="flex flex-col md:flex-row items-center justify-center gap-4 my-8">
+      <!-- Campo ciudad -->
+      <input
+        id="buscadorCiudad"
+        type="text"
+        placeholder="Buscar ciudad o país..."
+        class="w-80 md:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+
+      <!-- Campo huéspedes -->
+      <input
+        id="buscadorHuespedes"
+        type="number"
+        min="1"
+        value="1"
+        class="w-40 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Huéspedes"
+      />
+
+      <!-- Botón buscar -->
+      <button
+        id="btnBuscar"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md transition"
+      >
+        Buscar
+      </button>
+    </section>
+
+    <!-- Contenedor de resultados -->
+    <div
+      id="contenedorEstancias"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
+    ></div>
   </main>
 
-  <!-- Modal de detalle -->
-  <div id="overlayDetalle" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"></div>
-  <div id="modalDetalle" class="fixed inset-0 flex justify-center items-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6">
-      <button id="cerrarDetalle" class="absolute top-2 right-3 text-gray-600 text-2xl" aria-label="Cerrar">&times;</button>
-      <div id="contenidoDetalle" class="space-y-3">
-        <!-- Contenido inyectado dinámicamente por modalDetalle.js -->
-      </div>
+  <!-- 🔹 Modal de detalle (ya funcional) -->
+  <div
+    id="modalDetalle"
+    class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex justify-center items-center"
+  >
+    <div
+      id="contenidoModal"
+      class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6"
+    >
+      <button
+        id="cerrarDetalle"
+        class="absolute top-2 right-3 text-gray-600 text-2xl"
+        aria-label="Cerrar"
+      >
+        &times;
+      </button>
+      <div id="contenidoDetalle" class="space-y-3"></div>
     </div>
   </div>
 
@@ -117,7 +116,8 @@
     </div>
   </div>
 
- 
+  <!-- Script principal (ahora al final para asegurar carga correcta del DOM) -->
+  <script type="module" src="./javas/main.js"></script>
 
 </body>
 </html>
