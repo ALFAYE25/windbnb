@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,15 @@
 
   <title>Proyecto Windbnb</title>
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen">
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+
+  <!-- 🔘 Botón de modo oscuro -->
+  <button
+    id="btnModoOscuro"
+    class="fixed top-4 right-4 bg-gray-200 dark:bg-gray-700 dark:text-white px-4 py-2 rounded-lg shadow-md transition"
+  >
+    🌙 Modo Oscuro
+  </button>
 
   <!-- Sección principal -->
   <main class="p-6 max-w-7xl mx-auto">
@@ -29,7 +37,7 @@
         id="buscadorCiudad"
         type="text"
         placeholder="Buscar ciudad o país..."
-        class="w-80 md:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        class="w-80 md:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
       />
 
       <!-- Campo huéspedes -->
@@ -38,7 +46,7 @@
         type="number"
         min="1"
         value="1"
-        class="w-40 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        class="w-40 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:border-gray-600"
         placeholder="Huéspedes"
       />
 
@@ -58,66 +66,16 @@
     ></div>
   </main>
 
-  <!-- 🔹 Modal de detalle (ya funcional) -->
-  <div
-    id="modalDetalle"
-    class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex justify-center items-center"
-  >
-    <div
-      id="contenidoModal"
-      class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6"
-    >
-      <button
-        id="cerrarDetalle"
-        class="absolute top-2 right-3 text-gray-600 text-2xl"
-        aria-label="Cerrar"
-      >
-        &times;
-      </button>
+  <!-- Modal de detalle -->
+  <div id="overlayDetalle" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"></div>
+  <div id="modalDetalle" class="fixed inset-0 flex justify-center items-center hidden z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6 transition">
+      <button id="cerrarDetalle" class="absolute top-2 right-3 text-gray-600 dark:text-gray-300 text-2xl" aria-label="Cerrar">&times;</button>
       <div id="contenidoDetalle" class="space-y-3"></div>
     </div>
   </div>
 
-  <!-- Modal de filtros avanzados -->
-  <div id="overlayFiltro" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
-  <div id="modalFiltro" class="fixed inset-0 flex justify-center items-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-80 relative">
-      <button id="cerrarFiltro" class="absolute top-2 right-3 text-gray-600 text-xl" aria-label="Cerrar filtros">&times;</button>
-
-      <h3 class="text-lg font-semibold mb-4">Buscar Estancia</h3>
-
-      <label class="block mb-2 text-sm">País:</label>
-      <select id="ciudadSelect" class="border rounded w-full mb-3 p-2">
-        <option value="">Todos</option>
-        <option>México</option>
-        <option>Colombia</option>
-        <option>Argentina</option>
-        <option>Perú</option>
-        <option>Chile</option>
-        <option>Brasil</option>
-        <option>Guatemala</option>
-        <option>Costa Rica</option>
-        <option>Ecuador</option>
-        <option>Uruguay</option>
-      </select>
-
-      <label class="block mb-2 text-sm">Número de huéspedes:</label>
-      <input
-        type="number"
-        id="huespedesFiltro"
-        class="border rounded w-full mb-4 p-2"
-        min="1"
-        value="1"
-      />
-
-      <button id="aplicarFiltros" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded w-full">
-        Aplicar Filtros
-      </button>
-    </div>
-  </div>
-
-  <!-- Script principal (ahora al final para asegurar carga correcta del DOM) -->
+  <!-- Script principal (AL FINAL) -->
   <script type="module" src="./javas/main.js"></script>
-
 </body>
 </html>
