@@ -16,9 +16,9 @@
   <title>Proyecto Windbnb</title>
 
   <style>
-    /* Estilo de checkboxes (filtros avanzados) */
+    /* Personalización del color de los checkboxes de los filtros */
     input[type="checkbox"] {
-      accent-color: #2563eb; /* azul Tailwind */
+      accent-color: #2563eb; /* Azul estilo Tailwind */
       cursor: pointer;
     }
   </style>
@@ -26,7 +26,7 @@
 
 <body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
 
-  <!-- 🔘 Botón de modo oscuro -->
+  <!-- Botón para activar o desactivar el modo oscuro -->
   <button
     id="btnModoOscuro"
     class="fixed top-16 right-4 bg-gray-200 dark:bg-gray-700 dark:text-white px-4 py-2 rounded-lg shadow-md transition"
@@ -34,17 +34,19 @@
     🌙 Modo Oscuro
   </button>
 
-  <!-- Sección principal -->
+ <!-- Sección principal de la aplicación -->
   <main class="p-6 max-w-7xl mx-auto">
 
+ <!-- Encabezado con título y cantidad de estancias -->
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-semibold">Estancias disponibles</h2>
       <p id="mensajeEstancias" class="text-gray-500 text-sm"></p>
     </div>
 
-    <!-- 🔹 Buscador principal tipo Airbnb -->
+    <!-- Buscador principal tipo Airbnb -->
     <section class="flex flex-col md:flex-row items-center justify-center gap-4 my-8">
-      <!-- Campo ciudad -->
+
+      <!-- Campo de búsqueda por ciudad -->
       <input
         id="buscadorCiudad"
         type="text"
@@ -52,7 +54,7 @@
         class="w-80 md:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
       />
 
-      <!-- Campo huéspedes -->
+     <!-- Campo numérico para cantidad de huéspedes -->
       <input
         id="buscadorHuespedes"
         type="number"
@@ -62,7 +64,7 @@
         placeholder="Huéspedes"
       />
 
-      <!-- Filtros Avanzados -->
+      <!-- Sección de filtros avanzados (checkboxes) -->
       <div id="filtrosAvanzados" class="flex gap-3 mt-3 flex-wrap">
         <label class="flex items-center gap-1">
           <input type="checkbox" value="wifi" class="filtro-checkbox">
@@ -78,7 +80,7 @@
         </label>
       </div>
 
-      <!-- Botón buscar -->
+      <!-- Botón principal para ejecutar la búsqueda -->
       <button
         id="btnBuscar"
         class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md transition"
@@ -87,22 +89,27 @@
       </button>
     </section>
 
-    <!-- Contenedor de resultados -->
+    <!-- Contenedor donde se mostrarán las tarjetas de estancias -->
     <div
       id="contenedorEstancias"
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
     ></div>
   </main>
 
-  <!-- Modal de detalle -->
+  <!-- Overlay: fondo oscuro detrás del modal de detalles -->
   <div id="overlayDetalle" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"></div>
+
+<!-- Modal de detalle de estancia -->  
   <div id="modalDetalle" class="fixed inset-0 flex justify-center items-center hidden z-50">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6 transition">
+ <!-- Botón para cerrar el modal -->
       <button id="cerrarDetalle" class="absolute top-2 right-3 text-gray-600 dark:text-gray-300 text-2xl" aria-label="Cerrar">&times;</button>
+      <!-- Contenido dinámico del detalle -->
       <div id="contenidoDetalle" class="space-y-3"></div>
     </div>
   </div>
 
+  <!-- Script principal de la aplicación -->
   <script type="module" src="./javas/main.js"></script>
 </body>
 </html>

@@ -1,12 +1,11 @@
-// Proyecto Windbnb - main.js
-// Controla la lógica principal: búsqueda, filtros avanzados,
-// renderizado de tarjetas, modal de detalle y modo oscuro.
+// Archivo MAIN.JS
+// Controla la lógica principal: búsqueda, renderizado, modal de detalle y modo oscuro.
+
 
 import { filtrarEstancias } from "./filtros.js";
 
-// --------------------------------------------------
-// Datos de ejemplo (array de objetos)
-// --------------------------------------------------
+// Datos de ejemplo (estancias disponibles)
+
 const estancias = [
   { city: "México", guests: 2, title: "Casa en la Ciudad de México", image: "./imagenes/casa1.jpg", address: "Av. Reforma 123, Ciudad de México", amenities: ["WiFi", "Cocina", "Estacionamiento"] },
   { city: "Guadalajara", guests: 4, title: "Departamento moderno en GDL", image: "./imagenes/departamento1.jpg", address: "Calle Juárez 456, Guadalajara", amenities: ["WiFi", "Aire acondicionado", "Lavadora"] },
@@ -16,27 +15,33 @@ const estancias = [
   { city: "Tulum", guests: 4, title: "Bungalow ecológico con jardín", image: "./imagenes/tulum1.jpg", address: "Zona Hotelera, Tulum", amenities: ["WiFi", "Cocina", "Alberca natural"] },
 ];
 
-// --------------------------------------------------
+
 // Selección de elementos del DOM
-// --------------------------------------------------
+
 const inputCiudad = document.getElementById("buscadorCiudad");
 const inputHuespedes = document.getElementById("buscadorHuespedes");
 const btnBuscar = document.getElementById("btnBuscar");
 const contenedorEstancias = document.getElementById("contenedorEstancias");
+
+// Elementos del modal
 
 const overlayDetalle = document.getElementById("overlayDetalle");
 const modalDetalle = document.getElementById("modalDetalle");
 const contenidoDetalle = document.getElementById("contenidoDetalle");
 const cerrarDetalle = document.getElementById("cerrarDetalle");
 
+// Filtros avanzados (checkboxes)
+
 const checkboxesFiltros = document.querySelectorAll(".filtro-checkbox");
 
-// --------------------------------------------------
-// Función para mostrar estancias en pantalla
-// --------------------------------------------------
+
+// Función que renderiza las estancias en pantalla
+
 function mostrarEstancias(lista) {
   const mensaje = document.getElementById("mensajeEstancias");
   contenedorEstancias.innerHTML = "";
+
+// Si no hay resultados, muestra mensaje
 
   if (lista.length === 0) {
     mensaje.textContent = "No se encontraron estancias.";
@@ -44,7 +49,11 @@ function mostrarEstancias(lista) {
     return;
   }
 
+// Muestra cuántas estancias hay disponibles
+
   mensaje.textContent = `${lista.length} estancia${lista.length > 1 ? "s" : ""} disponible${lista.length > 1 ? "s" : ""}`;
+
+  // Crea dinámicamente las tarjetas de estancias
 
   lista.forEach(est => {
     const card = document.createElement("div");
@@ -59,18 +68,23 @@ function mostrarEstancias(lista) {
       </div>
     `;
 
+// Evento: al hacer clic en una tarjeta se abre el modal de detalle
+
     card.addEventListener("click", () => abrirModal(est));
     contenedorEstancias.appendChild(card);
   });
 }
 
-// --------------------------------------------------
-// Función para abrir modal de detalle
-// --------------------------------------------------
+
+// Función para abrir modal de detalle de una estancia
+
 function abrirModal(estancia) {
+  // Genera dinámicamente las amenidades
   const amenitiesHTML = estancia.amenities.map(a =>
     `<span class="inline-block bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs px-2 py-1 rounded mr-1 mb-1">${a}</span>`
   ).join("");
+
+// Inserta el contenido completo dentro del modal
 
   contenidoDetalle.innerHTML = `
     <img src="${estancia.image}" alt="${estancia.title}" class="w-full h-64 object-cover rounded-lg mb-4">
@@ -81,24 +95,28 @@ function abrirModal(estancia) {
     <div class="mb-2">${amenitiesHTML}</div>
   `;
 
+// Muestra el modal y su overlay oscuro
+
   overlayDetalle.classList.remove("hidden");
   modalDetalle.classList.remove("hidden");
 }
 
-// --------------------------------------------------
+
 // Función para cerrar modal
-// --------------------------------------------------
+
 function cerrarModal() {
   overlayDetalle.classList.add("hidden");
   modalDetalle.classList.add("hidden");
 }
 
-// --------------------------------------------------
-// Función para buscar estancias con filtros avanzados
-// --------------------------------------------------
+
+// Función para buscar estancias con filtros avanzados (usa filtros.js)
+
 function buscarEstancias() {
   const ciudad = inputCiudad.value.trim().toLowerCase();
   const huespedes = parseInt(inputHuespedes.value);
+
+// Validación: no permitir valores negativos
 
   if (huespedes < 1) {
     alert("El número de huéspedes no puede ser menor que 1.");
@@ -106,39 +124,50 @@ function buscarEstancias() {
     return;
   }
 
+// Captura los filtros seleccionados
+
   const filtrosSeleccionados = Array.from(checkboxesFiltros)
     .filter(c => c.checked)
     .map(c => c.value);
 
+ // Aplica los filtros importados desde filtros.js   
+
   const filtradas = filtrarEstancias(estancias, ciudad, huespedes, filtrosSeleccionados);
+
+// Muestra los resultados filtrados
 
   mostrarEstancias(filtradas);
   console.log({ ciudad, huespedes, filtrosSeleccionados, resultados: filtradas });
 }
 
-// --------------------------------------------------
-// Eventos
-// --------------------------------------------------
+
+// Eventos principales
+
 btnBuscar.addEventListener("click", buscarEstancias);
 cerrarDetalle.addEventListener("click", cerrarModal);
+
+// Cerrar el modal si se hace clic fuera del contenido
 modalDetalle.addEventListener("click", e => {
   if (e.target === modalDetalle) cerrarModal();
 });
 
-// --------------------------------------------------
-// Inicialización
-// --------------------------------------------------
+
+// Inicialización: muestra todas las estancias al cargar la página.
+
 mostrarEstancias(estancias);
 
-// --------------------------------------------------
-// Modo oscuro / claro
-// --------------------------------------------------
+
+// Modo oscuro / claro con locastorages.
+
 const btnModoOscuro = document.getElementById("btnModoOscuro");
 if (btnModoOscuro) {
+   // Mantiene el modo oscuro si ya estaba activado
   if (localStorage.theme === "dark") {
     document.documentElement.classList.add("dark");
     btnModoOscuro.textContent = "☀️ Modo Claro";
   }
+
+ // Alterna entre modo claro y oscuro al presionar el botón 
 
   btnModoOscuro.addEventListener("click", () => {
     const html = document.documentElement;
