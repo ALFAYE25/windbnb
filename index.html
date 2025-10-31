@@ -1,30 +1,42 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Windbnb - búsqueda de estancias estilo AirBnB (proyecto Windbnb DevChallenges)" />
-
-  <!-- Tailwind CDN (solo para desarrollo) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Activar modo oscuro por clase -->
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
 
   <!-- Estilos compilados -->
   <link rel="stylesheet" href="./estilos/output.css" />
-
   <title>Proyecto Windbnb</title>
+
+  <style>
+    /* Estilo de checkboxes (filtros avanzados) */
+    input[type="checkbox"] {
+      accent-color: #2563eb; /* azul Tailwind */
+      cursor: pointer;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
 
   <!-- 🔘 Botón de modo oscuro -->
   <button
     id="btnModoOscuro"
-    class="fixed top-4 right-4 bg-gray-200 dark:bg-gray-700 dark:text-white px-4 py-2 rounded-lg shadow-md transition"
+    class="fixed top-16 right-4 bg-gray-200 dark:bg-gray-700 dark:text-white px-4 py-2 rounded-lg shadow-md transition"
   >
     🌙 Modo Oscuro
   </button>
 
   <!-- Sección principal -->
   <main class="p-6 max-w-7xl mx-auto">
+
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-semibold">Estancias disponibles</h2>
       <p id="mensajeEstancias" class="text-gray-500 text-sm"></p>
@@ -49,6 +61,22 @@
         class="w-40 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:border-gray-600"
         placeholder="Huéspedes"
       />
+
+      <!-- Filtros Avanzados -->
+      <div id="filtrosAvanzados" class="flex gap-3 mt-3 flex-wrap">
+        <label class="flex items-center gap-1">
+          <input type="checkbox" value="wifi" class="filtro-checkbox">
+          WiFi
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="checkbox" value="tv" class="filtro-checkbox">
+          TV
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="checkbox" value="balcón" class="filtro-checkbox">
+          Balcón
+        </label>
+      </div>
 
       <!-- Botón buscar -->
       <button
@@ -75,7 +103,6 @@
     </div>
   </div>
 
-  <!-- Script principal (AL FINAL) -->
   <script type="module" src="./javas/main.js"></script>
 </body>
 </html>

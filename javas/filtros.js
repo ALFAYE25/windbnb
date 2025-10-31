@@ -1,18 +1,31 @@
 // javas/filtros.js
-export function abrirModalFiltro() {
-  const modal = document.getElementById("modalFiltro");
-  const overlay = document.getElementById("overlayFiltro");
-  if (!modal || !overlay) return;
-  modal.classList.remove("hidden");
-  overlay.classList.remove("hidden");
-}
 
-export function cerrarModalFiltro() {
-  const modal = document.getElementById("modalFiltro");
-  const overlay = document.getElementById("overlayFiltro");
-  if (!modal || !overlay) return;
-  modal.classList.add("hidden");
-  overlay.classList.add("hidden");
-}
+/* ===============================
+   FUNCIÓN PARA FILTRAR ESTANCIAS
+   =============================== */
+export function filtrarEstancias(estancias, ciudad, huespedes, filtrosSeleccionados) {
+  // 1️⃣ Filtrar por ciudad (si se ingresa texto)
+  let resultado = estancias.filter(estancia =>
+    ciudad
+      ? estancia.city.toLowerCase().includes(ciudad.toLowerCase()) 
+        || (estancia.country && estancia.country.toLowerCase().includes(ciudad.toLowerCase()))
+      : true
+  );
 
-/* NOTA: la asignación de eventos la haremos desde main.js para evitar ejecución prematura */
+  // 2️⃣ Filtrar por cantidad de huéspedes
+  if (huespedes > 0) {
+    resultado = resultado.filter(estancia => estancia.guests >= huespedes);
+  }
+
+  // 3️⃣ Filtrar por amenidades seleccionadas
+  if (filtrosSeleccionados.length > 0) {
+    resultado = resultado.filter(estancia =>
+      filtrosSeleccionados.every(filtro =>
+        estancia.amenities.map(a => a.toLowerCase()).includes(filtro.toLowerCase())
+      )
+    );
+  }
+
+  // 4️⃣ Retornar estancias filtradas
+  return resultado;
+}
